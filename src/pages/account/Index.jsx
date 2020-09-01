@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import { accountService } from "@/_services";
 
 import { Login } from "./Login";
-import { Register } from "./Register";
+// import { Register } from "./Register";
 import { VerifyEmail } from "./VerifyEmail";
 import { ForgotPassword } from "./ForgotPassword";
 import { ResetPassword } from "./ResetPassword";
@@ -26,7 +26,7 @@ function Account({ history, match }) {
           <div className="card m-3">
             <Switch>
               <Route path={`${path}/login`} component={Login} />
-              <Route path={`${path}/register`} component={Register} />
+              {/* <Route path={`${path}/register`} component={Register} /> */}
               <Route path={`${path}/verify-email`} component={VerifyEmail} />
               <Route
                 path={`${path}/forgot-password`}
@@ -36,6 +36,7 @@ function Account({ history, match }) {
                 path={`${path}/reset-password`}
                 component={ResetPassword}
               />
+              <Redirect from="*" to="/" />
             </Switch>
           </div>
         </div>

@@ -84,9 +84,6 @@ function Login({ history, location }) {
                   )}
                   Login
                 </button>
-                <Link to="register" className="btn btn-link">
-                  Register
-                </Link>
               </div>
               <div className="form-group col text-right">
                 <Link to="forgot-password" className="btn btn-link pr-0">
