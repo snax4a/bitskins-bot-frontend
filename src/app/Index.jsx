@@ -4,7 +4,9 @@ import { Route, Switch, Redirect, useLocation } from "react-router-dom";
 import { Role } from "@/_helpers";
 import { accountService } from "@/_services";
 import { Nav, PrivateRoute, Alert } from "@/_components";
-import { Skins } from "@/pages/skins";
+import { Home } from "@/pages/home";
+import { ItemPriceData } from "@/pages/item-price-data";
+import { WhitelistedItems } from "@/pages/whitelisted-items";
 import { Profile } from "@/pages/profile";
 import { Admin } from "@/pages/admin";
 import { Account } from "@/pages/account";
@@ -24,7 +26,9 @@ function App() {
       <Alert />
       <Switch>
         <Redirect from="/:url*(/+)" to={pathname.slice(0, -1)} />
-        <PrivateRoute exact path="/" component={Skins} />
+        <PrivateRoute exact path="/" component={Home} />
+        <PrivateRoute path="/item-price-data" component={ItemPriceData} />
+        <PrivateRoute path="/whitelisted-items" component={WhitelistedItems} />
         <PrivateRoute path="/profile" component={Profile} />
         <PrivateRoute path="/admin" roles={[Role.Admin]} component={Admin} />
         <Route path="/account" component={Account} />

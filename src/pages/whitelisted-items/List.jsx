@@ -1,68 +1,68 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import { accountService } from "@/_services";
+import { whitelistedItemsService } from "@/_services";
 
 function List({ match }) {
   const { path } = match;
-  const [users, setUsers] = useState(null);
+  const [items, setItems] = useState(null);
 
   useEffect(() => {
-    accountService.getAll().then((x) => setUsers(x));
+    whitelistedItemsService.getAll().then((x) => setItems(x));
   }, []);
 
-  function deleteUser(id) {
-    setUsers(
-      users.map((x) => {
+  function deleteItem(id) {
+    setItems(
+      items.map((x) => {
         if (x.id === id) {
           x.isDeleting = true;
         }
         return x;
       })
     );
-    accountService.delete(id).then(() => {
-      setUsers((users) => users.filter((x) => x.id !== id));
+    whitelistedItemsService.delete(id).then(() => {
+      setItems((items) => items.filter((x) => x.id !== id));
     });
   }
 
   return (
     <div>
-      <h1>Users</h1>
-      <p>All users from secure (admin only) api end point:</p>
+      <h1>Whitelisted Items</h1>
+      <p>All items that you want to be bought by bitskins bot:</p>
       <Link to={`${path}/add`} className="btn btn-sm btn-success mb-2">
-        Add User
+        Add Item
       </Link>
       <table className="table table-striped">
         <thead>
           <tr>
-            <th style={{ width: "30%" }}>Name</th>
-            <th style={{ width: "30%" }}>Email</th>
-            <th style={{ width: "30%" }}>Role</th>
+            <th style={{ width: "40%" }}>Name</th>
+            <th style={{ width: "20%" }}>Price Multiplier</th>
+            <th style={{ width: "20%" }}>Max Quantity</th>
             <th style={{ width: "10%" }}></th>
           </tr>
         </thead>
         <tbody>
-          {users &&
-            users.map((user) => (
-              <tr key={user.id}>
+          {items &&
+            items.map((item) => (
+              <tr key={item.id}>
+                <td>{item.name}</td>
+                <td>{item.priceMultiplier}</td>
                 <td>
-                  {user.title} {user.firstName} {user.lastName}
+                  {item.maxQuantity != 0 ? item.maxQuantity : "unlimited"}
                 </td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
                 <td style={{ whiteSpace: "nowrap" }}>
                   <Link
-                    to={`${path}/edit/${user.id}`}
+                    to={`${path}/edit/${item.id}`}
                     className="btn btn-sm btn-primary mr-1"
                   >
                     Edit
                   </Link>
                   <button
-                    onClick={() => deleteUser(user.id)}
+                    onClick={() => deleteItem(item.id)}
                     className="btn btn-sm btn-danger"
-                    disabled={user.isDeleting}
+                    disabled={item.isDeleting}
                   >
-                    {user.isDeleting ? (
+                    {item.isDeleting ? (
                       <span className="spinner-border spinner-border-sm"></span>
                     ) : (
                       <span>Delete</span>
@@ -71,7 +71,7 @@ function List({ match }) {
                 </td>
               </tr>
             ))}
-          {!users && (
+          {!items && (
             <tr>
               <td colSpan="4" className="text-center">
                 <span className="spinner-border spinner-border-lg align-center"></span>
