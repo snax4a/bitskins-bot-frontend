@@ -43,16 +43,6 @@ function Update({ history }) {
       });
   }
 
-  const [isDeleting, setIsDeleting] = useState(false);
-  function onDelete() {
-    if (confirm("Are you sure?")) {
-      setIsDeleting(true);
-      accountService
-        .delete(user.id)
-        .then(() => alertService.success("Account deleted successfully"));
-    }
-  }
-
   return (
     <Formik
       initialValues={initialValues}
@@ -160,19 +150,6 @@ function Update({ history }) {
                 <span className="spinner-border spinner-border-sm mr-1"></span>
               )}
               Update
-            </button>
-            <button
-              type="button"
-              onClick={() => onDelete()}
-              className="btn btn-danger"
-              style={{ width: "75px" }}
-              disabled={isDeleting}
-            >
-              {isDeleting ? (
-                <span className="spinner-border spinner-border-sm"></span>
-              ) : (
-                <span>Delete</span>
-              )}
             </button>
             <Link to="." className="btn btn-link">
               Cancel

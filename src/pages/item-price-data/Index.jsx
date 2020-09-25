@@ -57,7 +57,7 @@ function ItemPriceData() {
       <div className="container">
         <div className="row">
           <div className="col">
-            <h1>Check Item Price</h1>
+            <h1>Check item price data</h1>
           </div>
           <div className="col">
             <Formik

@@ -14,7 +14,7 @@ function Home() {
     accountService
       .update(user.id, params)
       .then(() => {
-        alertService.success("Bot Status have been updated", {
+        alertService.success("Bot Status has been updated", {
           keepAfterRouteChange: true,
         });
       })
